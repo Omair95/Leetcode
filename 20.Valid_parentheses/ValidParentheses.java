@@ -26,5 +26,7 @@ public class ValidParentheses {
         System.out.println(isValid(a));
         System.out.println(isValid(b));
         System.out.println(isValid(c));
+
+        System.out.println("Hello world");
     }
 }
