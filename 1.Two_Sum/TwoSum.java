@@ -4,26 +4,24 @@ import java.util.Map;
 
 public class TwoSum {
 
-    static class Solution {
-        public static int[] twoSum(int[] nums, int target) {
-            
-            int[] result = {};
+    public static int[] twoSumBruteForce(int[] nums, int target) {
 
-            for (int i = 0; i < nums.length; ++i) {
-                for (int j = i + 1; j < nums.length; ++j) {
-                    if ((nums[i] + nums[j]) == target) {
-                        result = new int[] {i, j};
-                        return result;
-                    }
-                    
+        int[] result = {};
+
+        for (int i = 0; i < nums.length; ++i) {
+            for (int j = i + 1; j < nums.length; ++j) {
+                if ((nums[i] + nums[j]) == target) {
+                    result = new int[] {i, j};
+                    return result;
                 }
-            } 
 
-            return result;
+            }
         }
+
+        return result;
     }
 
-    public static int[] twoSum(int[] nums, int target) {
+    public static int[] twoSumHashMap(int[] nums, int target) {
         int[] result = new int[2];
         Map<Integer, Integer> temp = new HashMap<Integer, Integer>();
 
@@ -39,19 +37,57 @@ public class TwoSum {
         return result;
     }
 
+    public static int[] twoSumPointers(int[] nums, int target) {
+        int[] nums2 = Arrays.copyOf(nums, nums.length);
+        Arrays.sort(nums2);
+
+        int a = 0, b = 0;
+        int l = 0, r = nums2.length-1;
+
+        while(l < r){
+            int sum = nums2[l] + nums2[r];
+            if(sum < target)
+                l++;
+            else if(sum > target)
+                r--;
+            else{
+                a = nums2[l];
+                b = nums2[r];
+                break;
+            }
+        }
+
+
+        int[] res = new int[2];
+        for(int i = 0; i < nums.length; i++) {
+            if(nums[i] == a) {
+                res[0] = i;
+                break;
+            }
+        }
+
+        if(a != b) {
+            for(int i = 0; i < nums.length; i++) {
+                if(nums[i] == b) {
+                    res[1] = i;
+                    break;
+                }
+            }
+        } else {
+            for(int i = 0; i < nums.length; i++) {
+                if(nums[i] == b && i != res[0]) {
+                    res[1] = i;
+                    break;
+                }
+            }
+        }
+
+        return res;
+    }
+
     public static void main (String [] args) {
-
-        int[] nums = new int[] { 2, 3, 4, 5, 9, 11 };
-        int target = 9;
-        int[] result1 = Solution.twoSum(nums, target);
-        int[] result2 = twoSum(nums, target);
-
-        for (int result : result1) {
-            System.out.println (result + " ");
-        }
-
-        for (int i : result2) {
-            System.out.println (i + " ");
-        }
+        System.out.println(Arrays.toString(twoSumBruteForce(new int[] { 2, 3, 4, 5, 9, 11 }, 11)));
+        System.out.println(Arrays.toString(twoSumHashMap(new int[] { 2, 3, 4, 5, 9, 11 }, 11)));
+        System.out.println(Arrays.toString(twoSumPointers(new int[] { 2, 3, 4, 5, 9, 11 }, 11)));
     }
 }
