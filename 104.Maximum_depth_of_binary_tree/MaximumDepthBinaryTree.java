@@ -1,3 +1,8 @@
+import com.sun.source.tree.Tree;
+
+import java.util.Collections;
+import java.util.LinkedList;
+import java.util.Queue;
 
 public class MaximumDepthBinaryTree {
 
@@ -14,9 +19,27 @@ public class MaximumDepthBinaryTree {
       }
     }
 
-    public static int maxDepth(TreeNode root) {
+    public static int maxDepthRecursiveDFS(TreeNode root) {
         if (root == null) return 0;
-        else return 1 + Math.max(maxDepth(root.left), maxDepth(root.right));
+        else return 1 + Math.max(maxDepthRecursiveDFS(root.left), maxDepthRecursiveDFS(root.right));
+    }
+
+    public static int maxDepthIterativeBFS(TreeNode root) {
+        if (root == null) return 0;
+        int depth = 0;
+        Queue<TreeNode> nodes = new LinkedList<>();
+        nodes.offer(root);
+
+        while (!nodes.isEmpty()) {
+            int size = nodes.size();
+            depth++;
+            while (size-- > 0) {
+                TreeNode node = nodes.poll();
+                if (node.left != null) nodes.offer(node.left);
+                if (node.right != null) nodes.offer(node.right);
+            }
+        }
+        return depth;
     }
 
     public static void main (String[] args) {
