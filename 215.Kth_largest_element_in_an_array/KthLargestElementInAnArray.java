@@ -4,17 +4,7 @@ public class KthLargestElementInAnArray {
 
     public static int findKthLargest(int[] nums, int k) {
         Arrays.sort(nums);
-        int res = 0;
-
-        for (int i = nums.length - 1; i >= 0; i--) {
-            --k;
-            if (k == 0) {
-                res = nums[i];
-                break;
-            }
-        }
-
-        return res;
+        return nums[nums.length - k];
     }
 
     public static void main (String [] args) {
