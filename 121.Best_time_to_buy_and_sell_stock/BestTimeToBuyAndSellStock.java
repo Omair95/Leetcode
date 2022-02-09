@@ -4,23 +4,27 @@ import java.util.Map;
 
 public class BestTimeToBuyAndSellStock {
 
+    // Two pointers pattern, keep track of max
     public static int maxProfit(int[] prices) {
-        int left = 0, right = 1, maxProfit = 0;
+        int l = 0, r = 1, max = 0;
 
-        while (right < prices.length) {
-            if (prices[left] < prices[right]) {
-                int profit = prices[right] - prices[left];
-                maxProfit = Math.max(maxProfit, profit);
-            } else {
-                left = right;
+        while (r < prices.length) {
+            int p = prices[r] - prices[l];
+            max = Math.max(max, p);
+
+            if (p < 0) {
+                ++l;
+                if (l == r) ++r;
             }
-            right++;
+            else ++r;
         }
-        return maxProfit;
+
+        return max;
     }
 
     public static void main(String[] args) {
-        int[] stocksPrices = new int[] {7, 1, 4, 6, 2};
-        System.out.println("Max profit = " + maxProfit(stocksPrices));
+        System.out.println("Max profit = " + maxProfit(new int[] {7, 1, 4, 6, 2}));
+        System.out.println("Max profit = " + maxProfit(new int[] {7, 1, 5, 3, 6, 4}));
+        System.out.println("Max profit = " + maxProfit(new int[] {7, 6, 4, 3, 1}));
     }
 }
