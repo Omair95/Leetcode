@@ -1,23 +1,19 @@
-import java.util.HashMap;
-import java.util.Map;
+import java.util.Arrays;
 
 public class ContainsDuplicate {
 
     public static boolean containsDuplicate(int[] nums) {
-        Map<Integer, Integer> map = new HashMap<>();
+        Arrays.sort(nums);
 
-        for (int i = 0; i < nums.length; i++) {
-            if (!map.containsKey(nums[i])) map.put(nums[i], 1);
-            else return true;
+        for (int i = 0; i < nums.length; ++i) {
+            if ((i + 1) < nums.length && nums[i] == nums[i + 1]) return true;
         }
 
         return false;
     }
 
     public static void main (String[] args) {
-
-        int[] nums = new int[] { 3, 3 };
-
-        System.out.println(containsDuplicate(nums));
+        System.out.println(containsDuplicate(new int[] { 3, 3 }));
+        System.out.println(containsDuplicate(new int[] { 1, 2, 3, 4, 5, 6, 7 }));
      }
 }
