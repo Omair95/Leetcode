@@ -2,20 +2,37 @@
 public class ProductOfArrayExceptSelf {
 
     public static int[] productExceptSelf(int[] nums) {
-        int totalMult = 1;
-        for (var num : nums) totalMult = totalMult*num;
-        int result [] = new int[nums.length];
 
-        for (int i = 0; i < nums.length; i++) {
-            result[i] = totalMult/nums[i];
+        int[] pre = new int[nums.length];
+        int[] post = new int[nums.length];
+
+        for (int i = 0; i < nums.length; ++i) {
+            if (i == 0) pre[i] = nums[i];
+            else pre[i] = nums[i] * pre[i-1];
         }
 
-        return result;
+        for (int i = nums.length - 1; i >= 0; --i) {
+            if (i == (nums.length - 1)) post[i] = nums[i];
+            else post[i] = nums[i] * post[i + 1];
+        }
+
+        int[] res = new int[nums.length];
+
+        for (int i = 0; i < nums.length; ++i) {
+            if (i == 0) {
+                res[i] = post[i + 1];
+            } else if (i == (nums.length - 1)) {
+                res[i] = pre[i - 1];
+            } else {
+                res[i] = pre[i - 1] * post[i + 1];
+            }
+        }
+
+        return res;
     }
 
     public static void main (String [] args) {
-        int[] test1 = {1, 2, 3};
-        int[] result = productExceptSelf(test1);
+        int[] result = productExceptSelf(new int[] {1, 2, 3, 4});
         for (var r : result) System.out.println(r);
     }
 }

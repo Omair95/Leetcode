@@ -3,15 +3,20 @@
 public class MaximumSubarray {
 
     public static int maxSubArray(int[] nums) {
-       int maxSum = nums[0], currentSum = 0;
+        int l = 0, r = 1, max = 0, sum = nums[l];
 
-       for (var n : nums) {
-           if (currentSum < 0) currentSum = 0;
-           currentSum += n;
-           maxSum = Math.max(currentSum, maxSum);
-       }
+        while (r < nums.length) {
+            sum += nums[r];
+            if (sum < max) {
+                sum = nums[r];
+                ++l;
+                if (l == r) ++r;
+            }
+            ++r;
+            max = Math.max(max, sum);
+        }
 
-       return maxSum;
+        return max;
     }
 
     public static void main (String[] args) {
