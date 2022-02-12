@@ -2,21 +2,19 @@
 
 public class MaximumSubarray {
 
+    // Keep tracking of the max at each point, update current sum if its less than 0
+    // Kadanes algorithm
     public static int maxSubArray(int[] nums) {
-        int l = 0, r = 1, max = 0, sum = nums[l];
+        int l = 0, r = nums.length, maxSum = nums[0], currentSum = 0;
 
-        while (r < nums.length) {
-            sum += nums[r];
-            if (sum < max) {
-                sum = nums[r];
-                ++l;
-                if (l == r) ++r;
-            }
-            ++r;
-            max = Math.max(max, sum);
+        while (l < r) {
+            if (currentSum < 0) currentSum = nums[l];
+            else currentSum += nums[l];
+            maxSum = Math.max(maxSum, currentSum);
+            ++l;
         }
 
-        return max;
+        return maxSum;
     }
 
     public static void main (String[] args) {
