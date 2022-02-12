@@ -1,7 +1,8 @@
 
 public class ProductOfArrayExceptSelf {
 
-    public static int[] productExceptSelf(int[] nums) {
+    // User prefix and postfix arrays to store results
+    public static int[] productExceptSelfPreProFix(int[] nums) {
 
         int[] pre = new int[nums.length];
         int[] post = new int[nums.length];
@@ -26,6 +27,26 @@ public class ProductOfArrayExceptSelf {
             } else {
                 res[i] = pre[i - 1] * post[i + 1];
             }
+        }
+
+        return res;
+    }
+
+    // In place pre post fix calculation
+    public static int[] productExceptSelf(int[] nums) {
+        int[] res = new int[nums.length];
+        int prefix = 1;
+
+        for (int i = 0; i < nums.length; ++i) {
+            res[i] = prefix;
+            prefix *= nums[i];
+        }
+
+        int postFix = 1;
+
+        for (int i = nums.length - 1; i >= 0; --i) {
+            res[i] *= postFix;
+            postFix *= nums[i];
         }
 
         return res;
