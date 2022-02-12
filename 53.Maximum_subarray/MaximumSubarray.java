@@ -2,7 +2,7 @@
 
 public class MaximumSubarray {
 
-    // Keep tracking of the max at each point, update current sum if its less than 0
+    // Keep track of the max at each point, update current sum if its less than 0
     // Kadanes algorithm
     public static int maxSubArray(int[] nums) {
         int l = 0, r = nums.length, maxSum = nums[0], currentSum = 0;
