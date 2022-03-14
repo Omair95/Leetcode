@@ -1,7 +1,9 @@
+import java.util.HashMap;
 
 public class FindFirstPalindromicStringInTheArray {
     public static boolean palindrome(String s) {
         int l = 0, r = s.length() - 1;
+        HashMap<Character, Character> m = new HashMap<>();
 
         while (l < r) {
             if (s.charAt(l) != s.charAt(r)) return false;
